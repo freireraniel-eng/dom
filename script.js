@@ -92,15 +92,31 @@ function renderizarTarefas() {
         );
 
         const botaoEditar = document.createElement("button");
+        botaoEditar.textContent = "Editar";
+        botaoEditar.classList.add(
+            "btn",
+            "btn-primary",
+            "btn-sm",
+            "me-2"
+        );
+        botaoEditar.addEventListener(
+            "click",
+            function() {
+                editarTarefa(tarefa.id);
+            }
+        );
         const botaoExcluir = document.createElement("button");
 
         colunaAcoes.appendChild(botaoConcluir);
+        colunaAcoes.appendChild(botaoEditar);
+        
         
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTexto);
         linha.appendChild(colunaStatus);
-        linha.appendChild(botaoConcluir);
-
+        linha.appendChild(colunaAcoes);
+        
+        
         listaTarefas.appendChild(linha);
 
     });
@@ -113,6 +129,30 @@ function alterarStatus(id) {
         }
     });
     salvarTarefa()
+    renderizarTarefas()
+}
+
+function editarTarefa(id) {
+    const tarefa = tarefas.find(function (tarefa) {
+        return tarefa.id === id;
+    });
+    if(!tarefa) {
+        return;
+    }
+    const novoTexto = prompt("Digite um novo texto:", tarefa.texto);
+    const texto = novoTexto.trim();
+
+    if (novoTexto === null || novoTexto === "") {
+        alert("A tarefa não pode ficar vazia.")
+        return;
+    }
+
+    texto = novoTexto.trim();
+    if (texto === "") {
+        alert("A terefa não pode ficar vazia.");
+    }
+    tarefa.texto = texto;
+    salvarTarefa();
     renderizarTarefas()
 }
 

@@ -124,16 +124,16 @@ function renderizarTarefas() {
         colunaAcoes.appendChild(botaoEditar);
         colunaAcoes.appendChild(botaoExcluir);
 
-
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTexto);
         linha.appendChild(colunaStatus);
         linha.appendChild(colunaAcoes);
 
-
         listaTarefas.appendChild(linha);
 
     });
+
+    atualizarContador();
 }
 
 function alterarStatus(id) {
@@ -165,6 +165,7 @@ function editarTarefa(id) {
     salvarTarefa();
     renderizarTarefas()
 }
+
 function excluirTarefa(id) {
     const confirmar = confirm("Deseja realmente excluir essa tarefa?");
     if (!confirmar) {
@@ -177,5 +178,15 @@ function excluirTarefa(id) {
     renderizarTarefas();
 }
 
+function atualizarContador() {
+    const quantidade = tarefas.length;
+    if(quantidade === 0) {
+        contador.textContent = "Não há tarefas"
+    } else {
+        contador.textContent = quantidade + " tarefa"
+    }
+    salvarTarefa()
+    renderizarTarefas()
+}
 
-renderizarTarefas()
+renderizarTarefas();
